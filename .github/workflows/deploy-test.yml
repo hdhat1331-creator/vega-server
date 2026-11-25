@@ -1,0 +1,30 @@
+
+name: Deploy VEGA Test Server
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/**"
+      - "migrations/**"
+      - "wrangler.test.toml"
+      - ".github/workflows/deploy-test.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Deploy test Worker
+        run: npx --yes wrangler@4 deploy --config wrangler.test.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
