@@ -1,0 +1,9 @@
+name = "vega-server"
+main = "src/index.js"
+compatibility_date = "2026-11-24"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "vega-db"
+database_id = "b8cdb6c9-cc42-4dbf-9242-73af0047a166"
+migrations_dir = "migrations"
